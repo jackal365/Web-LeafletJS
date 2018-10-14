@@ -1,6 +1,6 @@
-# GPS轨迹重现WEB客户端
+# GPS轨迹回放WEB客户端
 
-这是一个基于Leaflet.JS的GPS轨迹重现项目。
+这是一个基于Leaflet.JS的GPS轨迹回放小程序，基于网上的例子，修改为支持CAAMS农机监测设备的日志格式。
 ## 客户端效果
 ![项目效果展示](https://i.loli.net/2017/11/13/5a09648b66c54.gif "GPS轨迹重现效果")
 
