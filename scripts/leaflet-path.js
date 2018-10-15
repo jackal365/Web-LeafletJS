@@ -837,7 +837,7 @@
 
             // @option opacity: Number = 1.0
             // Stroke opacity
-            opacity: 1.0, // 定义透明度 1为完全不透明
+            opacity: 0.5, // 定义透明度 1为完全不透明
 
             // @option lineCap: String= 'round'
             // A string that defines [shape to be used at the end](https://developer.mozilla.org/docs/Web/SVG/Attribute/stroke-linecap) of the stroke.
@@ -1449,6 +1449,8 @@
                 // 新建一个用于存放坐标的数组
                 var pathArray = [],
                     speedArray = [],
+                    workingArray=[],        // 是否工作中的标志
+                    workingFlag=0,
                     speed = 0;
                 // 按行分割字符串\r\r\n两回车一换行
                 var GPSDataArray = event.target.result.split("\r");
@@ -1463,6 +1465,10 @@
                     // 将度分秒形式的经纬度转换为度
                     var gslat = parseInt(GPSLocateArray[3].slice(0, 2)) + parseFloat(GPSLocateArray[3].slice(2)) / 60;
                     var gslng = parseInt(GPSLocateArray[4].slice(0, 3)) + parseFloat(GPSLocateArray[4].slice(3)) / 60;
+                    // 文本文件第9列为是否工作的标志
+                    workingFlag= parseInt(GPSLocateArray[9]);
+                    workingArray.push(workingFlag);
+
                     if (!isNaN(parseFloat(GPSLocateArray[5]))) {
                         speed = parseFloat(GPSLocateArray[5]) * 1.852;
                     }

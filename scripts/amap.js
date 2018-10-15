@@ -35,7 +35,8 @@ var baseLayers = {
 // 新建一个地图实例
 var map = L.map("mapid", {
     crs: L.CRS.GCJ02,
-    center: [30.657589, 104.065708], // 天府广场GCJ-02坐标
+
+    center: [40.00324, 116.37514],        // 起始点坐标
     zoom: 16,
     layers: [googleSatelliteMap],
     attributionControl: false,
@@ -54,6 +55,51 @@ L.control.zoom({
 }).addTo(map);
 // 添加GPS输入文件到地图
 L.control.fileinput().addTo(map);
+
+//================================================
+//缩放等级显示器,右上角
+var ZoomViewer = L.Control.extend({
+    //onadd方法 要返回的控制容器的DOM元素和添加有关地图的事件侦听器。
+    onAdd: function() {
+        var container = L.DomUtil.create('div'); //容器div
+        container.style.width = '200px';
+        container.style.background = 'rgba(255,255,255,0.5)';
+        container.style.textAlign = 'left';
+        var gauge = L.DomUtil.create('div'); //计量器div
+        map.on('zoomstart zoom zoomend', function(ev) {
+            gauge.innerHTML = '缩放等级: ' + map.getZoom();
+        })
+        container.appendChild(gauge); //计量器放入容器中
+
+        return container;
+    }
+});
+(new ZoomViewer).addTo(map);
+
+////////////////////////////////////////////////////////////////////////
+//设置比例尺，左下角
+L.control.scale({
+    maxWidth: 100, //最大宽度
+    imperial: false,
+    position: "bottomleft",
+}).addTo(map);
+
+
+// 鼠标点击显示点击点的经纬度
+var mypop = L.popup();
+map.on('click', function(e) {
+    // 在日志中输出，并使用浏览器窗口提示
+    // console.log(e);
+    // alert('纬度：' + e.latlng.lat + '\n经度：' + e.latlng.lng);
+
+    var content = '你点击了这个位置：<br>';
+    content += e.latlng.toString();
+    mypop.setLatLng(e.latlng)
+        .setContent(content)
+        .openOn(map);
+});
+
+
 
 // function mapPan(){
 //     map.panBy([20, 20], {animate: false});
