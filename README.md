@@ -16,3 +16,4 @@ https://github.com/shlllshlll/GPSLoc
 - 为轨迹重现增加类似高德地图巡航效果
 - 优化并丰富线条颜色
 - 增加类似高德地图的巡航器头部样式
+
